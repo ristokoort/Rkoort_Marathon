@@ -40,7 +40,7 @@ namespace Rkoort_Marathon.Controllers
 
             _context.Add(runner);
             _context.SaveChanges();
-            return RedirectToAction("Index1");
+            return RedirectToAction("RegisterRunners");
         }
 
      

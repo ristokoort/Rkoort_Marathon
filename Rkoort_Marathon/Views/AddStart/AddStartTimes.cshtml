@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Runners>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int i = 0;
+}
+<h3>Add Start Time</h3>
+
+
+<form asp-action="LoadRunners" method="post">
+
+
+
+    <br />
+    <div class="form-group">
+        <P>Load Runners</P>
+        <button class="btn btn-info">Load</button>
+    </div>
+
+</form>
+<br />
+<form asp-action="AddStartTime" method="post">
+    <div class="form-group">
+        <label for="exampleFormControlInput1"><b>Start Time</b></label>
+        <div class="col-2">
+            <input type="time" class="form-control" id="starttime" name="starttime" placeholder="Start Time" required>
+        </div>
+        <br />
+        <button class="btn btn-info">Apply</button>
+    </div>
+
+
+
+
+</form>
+<br />
+<hr />
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Start Time</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in @Model)
+        {
+            i++;
+            <tr>
+                <th scope="row">@i</th>
+                <td>@obj.FirstName</td>
+                <td>@obj.LastName</td>
+                @if (@obj.StartTime != null)
+                {
+                    DateTime dt = (DateTime)obj.StartTime;
+
+                    <td>@dt.ToString("HH:mm:ss")</td>
+                }
+                <td><a type="submit" class="btn btn-danger" asp-action="DeleteRunner" asp-route-id="@obj.id">Remove</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+

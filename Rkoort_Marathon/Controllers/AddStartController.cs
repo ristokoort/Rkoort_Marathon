@@ -17,7 +17,7 @@ namespace Rkoort_Marathon.Controllers
         {
             _context = context;
         }
-        public IActionResult Index1()
+        public IActionResult AddStartTimes()
         {
             IEnumerable<Runners> data = _context.runners.ToList();
 
@@ -31,7 +31,7 @@ namespace Rkoort_Marathon.Controllers
             _context.Database.ExecuteSqlRaw("delete from runners");
             _context.Database.ExecuteSqlRaw("insert into runners(firstname,lastname,breaks) select firstname,lastname,0 from runnersMaster");
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AddStartTimes");
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace Rkoort_Marathon.Controllers
             await _context.runners.ForEachAsync(x => x.StartTime = DateTime.Parse(stime));
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AddStartTimes");
         }
 
 
@@ -59,7 +59,7 @@ namespace Rkoort_Marathon.Controllers
             var data = _context.runners.Where(x => x.id == id).FirstOrDefault();
             _context.Remove(data);
             _context.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("AddStartTimes");
         }
 
 
