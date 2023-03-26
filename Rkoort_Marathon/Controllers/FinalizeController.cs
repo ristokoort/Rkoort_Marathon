@@ -9,35 +9,36 @@ using Rkoort_Marathon.Models;
 
 namespace Rkoort_Marathon.Controllers
 {
-    public class BreakController : Controller
+    public class FinalizeController : Controller
     {
         private readonly ApplicationDBContext _context;
 
-        public BreakController(ApplicationDBContext context)
+        public FinalizeController(ApplicationDBContext context)
         {
             _context = context;
         }
-        [HttpPost]
-        public IActionResult UpdateRunnerBreaks(int id)
-        {
-            string brk = Request.Form["breaks"];
 
-            var data = _context.runners.Where(x => x.id == id).FirstOrDefault();
-            data.Breaks = int.Parse(brk);
 
-            _context.Update(data);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
         public IActionResult Index1()
         {
-
-            IEnumerable<Runners> data = _context.runners.ToList();
+            var data = _context.runners.Where(x => x.Breaks == 2).ToList();
 
             return View(data);
         }
 
+        public IActionResult UpdateFinalize(int id)
+        {
+            string ftime = Request.Form["endtime"];
+            var data = _context.runners.Where(x => x.id == id).FirstOrDefault();
+            if (ftime != null)
+            {
+                data.EndTime = DateTime.Parse(ftime);
+                _context.Update(data);
+                _context.SaveChanges();
+
+            }
+            return RedirectToAction("Index");
+        }
 
 
 
@@ -48,13 +49,16 @@ namespace Rkoort_Marathon.Controllers
 
 
 
-        // GET: Break
+
+
+
+        // GET: Finalize
         public async Task<IActionResult> Index()
         {
             return View(await _context.runners.ToListAsync());
         }
 
-        // GET: Break/Details/5
+        // GET: Finalize/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -72,13 +76,13 @@ namespace Rkoort_Marathon.Controllers
             return View(runners);
         }
 
-        // GET: Break/Create
+        // GET: Finalize/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Break/Create
+        // POST: Finalize/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -94,7 +98,7 @@ namespace Rkoort_Marathon.Controllers
             return View(runners);
         }
 
-        // GET: Break/Edit/5
+        // GET: Finalize/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -110,7 +114,7 @@ namespace Rkoort_Marathon.Controllers
             return View(runners);
         }
 
-        // POST: Break/Edit/5
+        // POST: Finalize/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -145,7 +149,7 @@ namespace Rkoort_Marathon.Controllers
             return View(runners);
         }
 
-        // GET: Break/Delete/5
+        // GET: Finalize/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -163,7 +167,7 @@ namespace Rkoort_Marathon.Controllers
             return View(runners);
         }
 
-        // POST: Break/Delete/5
+        // POST: Finalize/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
