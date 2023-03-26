@@ -18,7 +18,7 @@ namespace Rkoort_Marathon.Controllers
             _context = context;
         }
 
-        public IActionResult Index1()
+        public IActionResult ConfigureAdmin()
         {
 
 
@@ -51,7 +51,7 @@ namespace Rkoort_Marathon.Controllers
             _context.Update(rns);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction(" ConfigureAdmin");
 
         }
 

@@ -1,0 +1,60 @@
+﻿@model List<Runners>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int i = 0;
+}
+<br />
+
+<h3><p>Admin</p></h3>
+<br />
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+            <th scope="col">Breaks</th>
+            <th scope="col" style="text-align:right"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var obj in @Model)
+        {
+            i++;
+
+            DateTime st = (DateTime)@obj.StartTime;
+            DateTime et = @obj.EndTime != null ? (DateTime)@obj.EndTime : DateTime.Parse("00:00:00");
+
+            <tr>
+                <form asp-action="Update" asp-controller="Admin" asp-route-id="@obj.id" method="post">
+                <th scope="row">@i</th>
+                <td><input name="fname" value="@obj.FirstName" class="form-control"></td>
+                <td><input name="lname" value="@obj.LastName" class="form-control"></td>
+                <td><input name="stime" type="time" value="@st.ToString("hh:mm:ss")" class="form-control"></td>
+                    @if (et != DateTime.Parse("00:00:00"))
+                    {
+                    <td><input name="ltime" type="time" value="@et.ToString("hh:mm:ss")" class="form-control" required></td>
+                    }
+                    else
+                    {
+                    <td><input name="ltime" type="time" class="form-control" required></td>
+
+                    }
+
+                <td><input name="breaks" type="number" value="@obj.Breaks" max="2" min="1" class="form-control"></td>
+                <td style="text-align:right"><button type="submit" class="btn btn-info form-control">Update</button></td>
+                </form>
+            </tr>
+
+        }
+    </tbody>
+</table>
