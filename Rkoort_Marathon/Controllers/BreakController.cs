@@ -28,9 +28,9 @@ namespace Rkoort_Marathon.Controllers
             _context.Update(data);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AddBreaks");
         }
-        public IActionResult Index1()
+        public IActionResult AddBreaks()
         {
 
             IEnumerable<Runners> data = _context.runners.ToList();
