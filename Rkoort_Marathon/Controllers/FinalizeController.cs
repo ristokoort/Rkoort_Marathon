@@ -19,7 +19,7 @@ namespace Rkoort_Marathon.Controllers
         }
 
 
-        public IActionResult Index1()
+        public IActionResult FinalizeRunners()
         {
             var data = _context.runners.Where(x => x.Breaks == 2).ToList();
 
@@ -37,7 +37,7 @@ namespace Rkoort_Marathon.Controllers
                 _context.SaveChanges();
 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("FinalizeRunners");
         }
 
 

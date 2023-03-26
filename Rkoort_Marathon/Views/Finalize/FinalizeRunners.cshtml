@@ -1,0 +1,66 @@
+﻿@model List<Runners>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int i = 0;
+
+}
+
+<h3>Finalize</h3>
+<br />
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Breaks</th>
+            <th scope="col">End Time</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var obj in @Model)
+        {
+            i++;
+            @* if (obj.EndTime != null)
+        {
+        DateTime endt = (DateTime)obj.EndTime;
+        }*@
+            <tr>
+                <form class="btn btn-info" asp-action="UpdateFinalize" asp-route-id="@obj.id" enctype="multipart/form-data">
+                <th scope="row">@i</th>
+                <td>@obj.FirstName</td>
+                <td>@obj.LastName</td>
+
+                    @if (@obj.StartTime != null)
+                    {
+                        DateTime dt = (DateTime)obj.StartTime;
+
+                    <td>@dt.ToString("HH:mm:ss")</td>
+                    }
+
+
+
+                <td>@obj.Breaks</td>
+                    @if (obj.EndTime != null)
+                    {
+                        DateTime endt = (DateTime)obj.EndTime;
+                    <td><input name="endtime" type="time" value="@endt.ToString("hh:mm:ss")" class="form-control"> </td>
+                    }
+                    else
+                    {
+                    <td><input name="endtime" type="time" class="form-control" required> </td>
+
+
+                    }
+                <td><button type="submit" class="btn btn-info">Update</button></td>
+
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
