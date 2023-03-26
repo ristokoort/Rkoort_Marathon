@@ -19,7 +19,7 @@ namespace Rkoort_Marathon.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index1()
+        public IActionResult AwardTheRunners()
         {
             List<Award> awds = new List<Award>();
 

@@ -1,0 +1,62 @@
+﻿@model List<Award>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int i = 0;
+}
+<h3><p>Awards</p></h3>
+
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Rank</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">End Time</th>
+            <th scope="col" style="text-align:right">Duration (sec)</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="color:white;background-color: green">
+            <td><b>FIRST 3</b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        @foreach (var obj in @Model)
+        {
+            i++;
+
+            DateTime st = (DateTime)@obj.StartTime;
+            DateTime et = (DateTime)@obj.EndTime;
+
+            <tr>
+                <th scope="row">@i</th>
+                <td>@obj.FirstName</td>
+                <td>@obj.LastName</td>
+                <td> @st.ToString("hh:mm:ss")</td>
+                <td>@et.ToString("hh:mm:ss")</td>
+                <td style="text-align:right">@obj.time</td>
+
+            </tr>
+            if (i == 3)
+            {
+                <tr style="color:white;background-color: green">
+                    <td><b>OTHERS</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            }
+        }
+    </tbody>
+</table>
