@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RunnersMaster>
+@{
+    ViewData["Title"] = "Home Page";
+    int i = 0;
+}
+
+<div class="text-center">
+    <h3>REGISTER RUNNERS</h3>
+</div>
+<br />
+<form asp-action="Addrunners" method="post">
+    <div class="form-group col-4">
+        <label for="exampleFormControlInput1"><b>First Name</b></label>
+        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+    </div>
+    <br />
+    <div class="form-group col-4">
+        <label for="exampleFormControlInput1"><b>Last Name</b></label>
+        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <button class="btn btn-info">Save</button>
+    </div>
+
+</form>
+
+<br />
+<hr />
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in @Model)
+        {
+            i++;
+            <tr>
+                <th scope="row">@i</th>
+                <td>@obj.FirstName</td>
+                <td>@obj.LastName</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

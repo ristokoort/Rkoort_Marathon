@@ -9,54 +9,59 @@ using Rkoort_Marathon.Models;
 
 namespace Rkoort_Marathon.Controllers
 {
-    public class RunnersMasterController : Controller
+    public class AwardsController : Controller
     {
         private readonly ApplicationDBContext _context;
 
-        public RunnersMasterController(ApplicationDBContext context)
+        public AwardsController(ApplicationDBContext context)
         {
             _context = context;
         }
 
-        public IActionResult RegisterRunners()
+        [HttpGet]
+        public IActionResult Index1()
         {
+            List<Award> awds = new List<Award>();
 
-            IEnumerable<RunnersMaster> data = _context.RunnersMaster.ToList();
+            var data = _context.runners.Where(x => x.Breaks == 2 && x.EndTime != null).ToList();
 
-            return View(data);
-        }
-
-
-        [HttpPost]
-        public IActionResult Addrunners()
-        {
-
-            RunnersMaster runner = new RunnersMaster
+            for (int x = 0; x < data.Count; x++)
             {
-                FirstName = Request.Form["firstname"],
-                LastName = Request.Form["lastname"],
+                TimeSpan tm = ((TimeSpan)(data[x].EndTime - data[x].StartTime));
 
-            };
+                Award awd = new Award
+                {
+                    FirstName = data[x].FirstName,
+                    LastName = data[x].LastName,
+                    StartTime = data[x].StartTime,
+                    EndTime = data[x].EndTime,
+                    time = tm.TotalSeconds
 
-            _context.Add(runner);
-            _context.SaveChanges();
-            return RedirectToAction("Index1");
+                };
+
+                awds.Add(awd);
+            }
+
+            var passData = awds.OrderBy(x => x.time).ToList();
+
+            return View(passData);
         }
 
-     
 
 
 
 
 
 
-        // GET: RunnersMaster
+
+
+        // GET: Awards
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RunnersMaster.ToListAsync());
+            return View(await _context.Award.ToListAsync());
         }
 
-        // GET: RunnersMaster/Details/5
+        // GET: Awards/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -64,39 +69,39 @@ namespace Rkoort_Marathon.Controllers
                 return NotFound();
             }
 
-            var runnersMaster = await _context.RunnersMaster
+            var award = await _context.Award
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (runnersMaster == null)
+            if (award == null)
             {
                 return NotFound();
             }
 
-            return View(runnersMaster);
+            return View(award);
         }
 
-        // GET: RunnersMaster/Create
+        // GET: Awards/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: RunnersMaster/Create
+        // POST: Awards/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,FirstName,LastName")] RunnersMaster runnersMaster)
+        public async Task<IActionResult> Create([Bind("id,FirstName,LastName,StartTime,EndTime,time")] Award award)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(runnersMaster);
+                _context.Add(award);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(runnersMaster);
+            return View(award);
         }
 
-        // GET: RunnersMaster/Edit/5
+        // GET: Awards/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -104,22 +109,22 @@ namespace Rkoort_Marathon.Controllers
                 return NotFound();
             }
 
-            var runnersMaster = await _context.RunnersMaster.FindAsync(id);
-            if (runnersMaster == null)
+            var award = await _context.Award.FindAsync(id);
+            if (award == null)
             {
                 return NotFound();
             }
-            return View(runnersMaster);
+            return View(award);
         }
 
-        // POST: RunnersMaster/Edit/5
+        // POST: Awards/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,FirstName,LastName")] RunnersMaster runnersMaster)
+        public async Task<IActionResult> Edit(int id, [Bind("id,FirstName,LastName,StartTime,EndTime,time")] Award award)
         {
-            if (id != runnersMaster.id)
+            if (id != award.id)
             {
                 return NotFound();
             }
@@ -128,12 +133,12 @@ namespace Rkoort_Marathon.Controllers
             {
                 try
                 {
-                    _context.Update(runnersMaster);
+                    _context.Update(award);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RunnersMasterExists(runnersMaster.id))
+                    if (!AwardExists(award.id))
                     {
                         return NotFound();
                     }
@@ -144,10 +149,10 @@ namespace Rkoort_Marathon.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(runnersMaster);
+            return View(award);
         }
 
-        // GET: RunnersMaster/Delete/5
+        // GET: Awards/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,30 +160,30 @@ namespace Rkoort_Marathon.Controllers
                 return NotFound();
             }
 
-            var runnersMaster = await _context.RunnersMaster
+            var award = await _context.Award
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (runnersMaster == null)
+            if (award == null)
             {
                 return NotFound();
             }
 
-            return View(runnersMaster);
+            return View(award);
         }
 
-        // POST: RunnersMaster/Delete/5
+        // POST: Awards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var runnersMaster = await _context.RunnersMaster.FindAsync(id);
-            _context.RunnersMaster.Remove(runnersMaster);
+            var award = await _context.Award.FindAsync(id);
+            _context.Award.Remove(award);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RunnersMasterExists(int id)
+        private bool AwardExists(int id)
         {
-            return _context.RunnersMaster.Any(e => e.id == id);
+            return _context.Award.Any(e => e.id == id);
         }
     }
 }
