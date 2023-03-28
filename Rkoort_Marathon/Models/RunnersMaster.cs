@@ -6,7 +6,13 @@ namespace Rkoort_Marathon.Models
     {
         [Key]
         public int id { get; set; }
+
+        [StringLength(50, MinimumLength = 2)]
         public string FirstName { get; set; }
+
+        [StringLength(50, MinimumLength = 2)]
         public string LastName { get; set; }
+        
+
     }
 }
