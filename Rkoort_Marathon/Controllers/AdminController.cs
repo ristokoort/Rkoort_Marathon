@@ -51,7 +51,7 @@ namespace Rkoort_Marathon.Controllers
             _context.Update(rns);
             _context.SaveChanges();
 
-            return RedirectToAction(" ConfigureAdmin");
+            return RedirectToAction("ConfigureAdmin");
 
         }
 
