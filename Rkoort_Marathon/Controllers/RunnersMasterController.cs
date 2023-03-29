@@ -28,7 +28,7 @@ namespace Rkoort_Marathon.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddrunnersAsync ([Bind("FirstName,LastName")] RunnersMaster runner)
+        public async Task<IActionResult> Addrunners ([Bind("FirstName,LastName")] RunnersMaster runner)
         {
            // RunnersMaster runner = new RunnersMaster
            // {
@@ -42,7 +42,7 @@ namespace Rkoort_Marathon.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("RegisterRunners");
             }
-            return View(RegisterRunners,Runners);
+            return View("RegisterRunners",runner);
             
         }
 
