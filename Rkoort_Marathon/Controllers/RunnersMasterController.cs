@@ -28,19 +28,22 @@ namespace Rkoort_Marathon.Controllers
 
 
         [HttpPost]
-        public IActionResult Addrunners()
+        public async Task<IActionResult> AddrunnersAsync ([Bind("FirstName,LastName")] RunnersMaster runner)
         {
+           // RunnersMaster runner = new RunnersMaster
+           // {
+             //   FirstName = Request.Form["firstname"],
+             //   LastName = Request.Form["lastname"],
+           // };
 
-            RunnersMaster runner = new RunnersMaster
-            {
-                FirstName = Request.Form["firstname"],
-                LastName = Request.Form["lastname"],
-
-            };
-
+            if(ModelState.IsValid)
+            { 
             _context.Add(runner);
-            _context.SaveChanges();
-            return RedirectToAction("RegisterRunners");
+                await _context.SaveChangesAsync();
+                return RedirectToAction("RegisterRunners");
+            }
+            return View(RegisterRunners,Runners);
+            
         }
 
      
