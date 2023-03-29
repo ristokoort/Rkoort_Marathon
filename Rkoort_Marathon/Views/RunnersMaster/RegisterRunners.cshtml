@@ -8,7 +8,7 @@
     <h3>REGISTER RUNNERS</h3>
 </div>
 <br />
-<form asp-action="Addrunners" method="post">
+<form asp-action="Addrunners">
     <div class="form-group col-4">
         <label for="exampleFormControlInput1"><b>First Name</b></label>
         <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
@@ -54,3 +54,9 @@
 </table>
 
 
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

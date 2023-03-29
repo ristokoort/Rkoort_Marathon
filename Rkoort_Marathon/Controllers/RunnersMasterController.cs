@@ -40,9 +40,10 @@ namespace Rkoort_Marathon.Controllers
             { 
             _context.Add(runner);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("RegisterRunners");
+                
             }
-            return View("RegisterRunners",runner);
+            var runners = _context.RunnersMaster.ToList();
+            return View("RegisterRunners",runners);
             
         }
 
