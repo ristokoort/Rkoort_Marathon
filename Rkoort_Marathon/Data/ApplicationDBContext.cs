@@ -12,7 +12,7 @@ using Rkoort_Marathon.Models;
         {
         }
 
-    public DbSet<Runners> runners { get; set; }
+    public DbSet<Runner> runners { get; set; }
     public DbSet<RunnersMaster> RunnersMaster { get; set; }
     public DbSet<Rkoort_Marathon.Models.Award> Award { get; set; }
 }

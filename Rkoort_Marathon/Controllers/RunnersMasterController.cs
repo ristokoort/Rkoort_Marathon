@@ -18,17 +18,18 @@ namespace Rkoort_Marathon.Controllers
             _context = context;
         }
 
-        public IActionResult RegisterRunners()
+        public IActionResult RegisterRunners(RunnersMaster newRunner)
         {
 
-            IEnumerable<RunnersMaster> data = _context.RunnersMaster.ToList();
+            List<RunnersMaster> data = _context.RunnersMaster.ToList();
 
-            return View(data);
+            return View(new AddRunnersViewModel() { NewRunner=newRunner,RegisteredRunners=data});
+            
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Addrunners ([Bind("FirstName,LastName")] RunnersMaster runner)
+        public async Task<IActionResult> Addrunners( AddRunnersViewModel model)
         {
            // RunnersMaster runner = new RunnersMaster
            // {
@@ -38,12 +39,11 @@ namespace Rkoort_Marathon.Controllers
 
             if(ModelState.IsValid)
             { 
-            _context.Add(runner);
+            _context.Add(model.NewRunner);
                 await _context.SaveChangesAsync();
-                
+                return RedirectToAction(nameof(RegisterRunners));
             }
-            var runners = _context.RunnersMaster.ToList();
-            return View("RegisterRunners",runners);
+            return View("RegisterRunners",model.NewRunner);
             
         }
 

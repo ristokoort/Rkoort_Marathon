@@ -3,7 +3,7 @@ using System;
 
 namespace Rkoort_Marathon.Models
 {
-    public class Runners
+    public class Runner
     {
         [Key]
         public int id { get; set; }

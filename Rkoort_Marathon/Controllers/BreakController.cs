@@ -33,7 +33,7 @@ namespace Rkoort_Marathon.Controllers
         public IActionResult AddBreaks()
         {
 
-            IEnumerable<Runners> data = _context.runners.ToList();
+            IEnumerable<Runner> data = _context.runners.ToList();
 
             return View(data);
         }
@@ -83,7 +83,7 @@ namespace Rkoort_Marathon.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runners runners)
+        public async Task<IActionResult> Create([Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runner runners)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +115,7 @@ namespace Rkoort_Marathon.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runners runners)
+        public async Task<IActionResult> Edit(int id, [Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runner runners)
         {
             if (id != runners.id)
             {

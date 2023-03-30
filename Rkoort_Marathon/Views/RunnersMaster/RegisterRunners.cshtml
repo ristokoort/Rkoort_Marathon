@@ -1,7 +1,7 @@
-﻿@model IEnumerable<RunnersMaster>
+﻿@model AddRunnersViewModel
 @{
     ViewData["Title"] = "Home Page";
-    int i = 0;
+    
 }
 
 <div class="text-center">
@@ -10,13 +10,19 @@
 <br />
 <form asp-action="Addrunners">
     <div class="form-group col-4">
-        <label for="exampleFormControlInput1"><b>First Name</b></label>
-        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <label asp-for="NewRunner.FirstName" class="control-label"></label>
+
+        <input asp-for="NewRunner.FirstName" class="form-control" />
+        <span asp-validation-for="NewRunner.FirstName" class="text-danger"></span>
+
     </div>
     <br />
     <div class="form-group col-4">
-        <label for="exampleFormControlInput1"><b>Last Name</b></label>
-        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+        <label asp-for="NewRunner.LastName" class="control-label"></label>
+        
+        <input asp-for="NewRunner.LastName" class="form-control" />
+        <span asp-validation-for="NewRunner.LastName" class="text-danger"></span>
     </div>
 
 
@@ -40,16 +46,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var obj in @Model)
+
+
+        @for(var i=0; i<Model.RegisteredRunners.Count();i++ )
         {
-            i++;
             <tr>
                 <th scope="row">@i</th>
-                <td>@obj.FirstName</td>
-                <td>@obj.LastName</td>
-
+                <td>@Html.DisplayFor(x=>Model.RegisteredRunners[i].FirstName)</td>
+                <td>@Html.DisplayFor(x=>Model.RegisteredRunners[i].LastName)</td>
+                <td></td>
             </tr>
         }
+
+       
     </tbody>
 </table>
 

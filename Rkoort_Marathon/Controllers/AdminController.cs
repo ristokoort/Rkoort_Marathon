@@ -38,7 +38,7 @@ namespace Rkoort_Marathon.Controllers
             string ltime = Request.Form["ltime"];
             string breaks = Request.Form["breaks"];
 
-            Runners rns = new Runners
+            Runner rns = new Runner
             {
                 id = id,
                 FirstName = fname,
@@ -102,7 +102,7 @@ namespace Rkoort_Marathon.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runners runners)
+        public async Task<IActionResult> Create([Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runner runners)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +134,7 @@ namespace Rkoort_Marathon.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runners runners)
+        public async Task<IActionResult> Edit(int id, [Bind("id,FirstName,LastName,Breaks,StartTime,EndTime")] Runner runners)
         {
             if (id != runners.id)
             {
