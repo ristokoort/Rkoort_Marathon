@@ -19,5 +19,8 @@ namespace Rkoort_Marathon.Models
         [DataType(DataType.Time)]
         public DateTime? EndTime { get; set; }
         public double time { get; set; }
+
+        public int? Break1 { get; set; }
+        public int? Break2 { get; set; }
     }
 }

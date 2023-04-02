@@ -23,11 +23,29 @@ namespace Rkoort_Marathon.Controllers
         {
             List<Award> awds = new List<Award>();
 
-            var data = _context.runners.Where(x => x.Breaks == 2 && x.EndTime != null).ToList();
+            var data = _context.runners.Where(x => x.EndTime != null).ToList();
 
             for (int x = 0; x < data.Count; x++)
             {
-                TimeSpan tm = ((TimeSpan)(data[x].EndTime - data[x].StartTime));
+                DateTime break1start = (DateTime)data[x].Break1_time1;
+                DateTime break1end = (DateTime)data[x].Break1_time2;
+
+                TimeSpan break1 = break1end.Subtract(break1start);
+
+                DateTime break2start = (DateTime)data[x].Break2_time1;
+                DateTime break2end = (DateTime)data[x].Break2_time2;
+
+                TimeSpan break2 = break2end.Subtract(break2start);
+
+
+                DateTime endtime = (DateTime)data[x].EndTime;
+
+
+                DateTime FinalTime = endtime.AddMinutes(-(double)break1.Minutes).AddMinutes(-(double)break2.Minutes);
+
+                TimeSpan tm = ((TimeSpan)(FinalTime - data[x].StartTime));
+
+
 
                 Award awd = new Award
                 {
@@ -35,7 +53,9 @@ namespace Rkoort_Marathon.Controllers
                     LastName = data[x].LastName,
                     StartTime = data[x].StartTime,
                     EndTime = data[x].EndTime,
-                    time = tm.TotalSeconds
+                    time = tm.TotalSeconds,
+                    Break1 = break1.Minutes,
+                    Break2 = break2.Minutes
 
                 };
 
@@ -45,6 +65,7 @@ namespace Rkoort_Marathon.Controllers
             var passData = awds.OrderBy(x => x.time).ToList();
 
             return View(passData);
+
         }
 
 

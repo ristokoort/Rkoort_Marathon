@@ -19,8 +19,12 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Start Time</th>
+            <th scope="col">Breaks1 Start</th>
+            <th scope="col">Breaks1 End</th>
+            <th scope="col">Breaks2 Start</th>
+            <th scope="col">Breaks2 End</th>
             <th scope="col">End Time</th>
-            <th scope="col">Breaks</th>
+
             <th scope="col" style="text-align:right"></th>
 
         </tr>
@@ -32,7 +36,7 @@
             i++;
 
             DateTime st = (DateTime)@obj.StartTime;
-            DateTime et = @obj.EndTime != null ? (DateTime)@obj.EndTime : DateTime.Parse("00:00:00");
+
 
             <tr>
                 <form asp-action="Update" asp-controller="Admin" asp-route-id="@obj.id" method="post">
@@ -40,17 +44,24 @@
                 <td><input name="fname" value="@obj.FirstName" class="form-control"></td>
                 <td><input name="lname" value="@obj.LastName" class="form-control"></td>
                 <td><input name="stime" type="time" value="@st.ToString("hh:mm:ss")" class="form-control"></td>
-                    @if (et != DateTime.Parse("00:00:00"))
+                <td><input name="Break1_time1" type="time" value="@DateTime.Parse(@obj.Break1_time1.ToString()).ToString("hh:mm:ss")" class="form-control"></td>
+                <td><input name="Break1_time2" type="time" value="@DateTime.Parse(@obj.Break1_time2.ToString()).ToString("hh:mm:ss")" class="form-control"></td>
+
+                <td><input name="Break2_time1" type="time" value="@DateTime.Parse(@obj.Break2_time1.ToString()).ToString("hh:mm:ss")" class="form-control"></td>
+                <td><input name="Break2_time2" type="time" value="@DateTime.Parse(@obj.Break2_time2.ToString()).ToString("hh:mm:ss")" class="form-control"></td>
+
+                    @if (@obj.EndTime != null)
                     {
-                    <td><input name="ltime" type="time" value="@et.ToString("hh:mm:ss")" class="form-control" required></td>
+                        DateTime et = (DateTime)@obj.EndTime;
+                    <td><input name="ltime" type="time" value="@et.ToString("hh:mm:ss")" class="form-control"></td>
                     }
                     else
                     {
+
                     <td><input name="ltime" type="time" class="form-control" required></td>
 
                     }
 
-                <td><input name="breaks" type="number" value="@obj.Breaks" max="2" min="1" class="form-control"></td>
                 <td style="text-align:right"><button type="submit" class="btn btn-info form-control">Update</button></td>
                 </form>
             </tr>

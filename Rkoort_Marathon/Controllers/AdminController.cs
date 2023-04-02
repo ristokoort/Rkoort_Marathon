@@ -22,7 +22,7 @@ namespace Rkoort_Marathon.Controllers
         {
 
 
-            var data = _context.runners.OrderBy(x => x.Breaks).ToList();
+            var data = _context.runners.ToList();
 
             return View(data);
 
@@ -36,7 +36,10 @@ namespace Rkoort_Marathon.Controllers
             string lname = Request.Form["lname"];
             string stime = Request.Form["stime"];
             string ltime = Request.Form["ltime"];
-            string breaks = Request.Form["breaks"];
+            string break1_start = Request.Form["Break1_time1"];
+            string break1_end = Request.Form["Break1_time2"];
+            string break2_start = Request.Form["Break2_time1"];
+            string break2_end = Request.Form["Break2_time2"];
 
             Runner rns = new Runner
             {
@@ -45,7 +48,11 @@ namespace Rkoort_Marathon.Controllers
                 LastName = lname,
                 StartTime = DateTime.Parse(stime),
                 EndTime = DateTime.Parse(ltime),
-                Breaks = int.Parse(breaks)
+
+                Break1_time1 = DateTime.Parse(break1_start),
+                Break1_time2 = DateTime.Parse(break1_end),
+                Break2_time1 = DateTime.Parse(break2_start),
+                Break2_time2 = DateTime.Parse(break2_end)
             };
 
             _context.Update(rns);

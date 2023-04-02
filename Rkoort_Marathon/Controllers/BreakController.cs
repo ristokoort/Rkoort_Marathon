@@ -20,22 +20,39 @@ namespace Rkoort_Marathon.Controllers
         [HttpPost]
         public IActionResult UpdateRunnerBreaks(int id)
         {
-            string brk = Request.Form["breaks"];
-
-            var data = _context.runners.Where(x => x.id == id).FirstOrDefault();
-            data.Breaks = int.Parse(brk);
-
-            _context.Update(data);
-            _context.SaveChanges();
-
-            return RedirectToAction("AddBreaks");
-        }
-        public IActionResult AddBreaks()
-        {
-
+            ViewBag.id = id;
             IEnumerable<Runner> data = _context.runners.ToList();
 
             return View(data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddBreaks(int id)
+        {
+           
+            ViewBag.id = id;
+
+            string stime1 = Request.Form["breaktime1"];
+            string stime2 = Request.Form["breaktime2"];
+
+            if (id == 1)
+            {
+                await _context.runners.ForEachAsync(x => x.Break1_time1 = DateTime.Parse(stime1));
+                _context.SaveChanges();
+                await _context.runners.ForEachAsync(x => x.Break1_time2 = DateTime.Parse(stime2));
+                _context.SaveChanges();
+            }
+            else
+            {
+                await _context.runners.ForEachAsync(x => x.Break2_time1 = DateTime.Parse(stime1));
+                _context.SaveChanges();
+                await _context.runners.ForEachAsync(x => x.Break2_time2 = DateTime.Parse(stime2));
+                _context.SaveChanges();
+            }
+
+            IEnumerable<Runner> data = _context.runners.ToList();
+
+            return RedirectToAction("AddBreaks", new { id = id });
+
         }
 
 

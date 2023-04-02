@@ -15,6 +15,8 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Start Time</th>
+            <th scope="col">Break1 (Min)</th>
+            <th scope="col">Break2 (Min)</th>
             <th scope="col">End Time</th>
             <th scope="col" style="text-align:right">Duration (sec)</th>
 
@@ -23,6 +25,8 @@
     <tbody>
         <tr style="color:white;background-color: green">
             <td><b>FIRST 3</b></td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -41,6 +45,9 @@
                 <td>@obj.FirstName</td>
                 <td>@obj.LastName</td>
                 <td> @st.ToString("hh:mm:ss")</td>
+                <td>@obj.Break1</td>
+                <td>@obj.Break2</td>
+
                 <td>@et.ToString("hh:mm:ss")</td>
                 <td style="text-align:right">@obj.time</td>
 
@@ -49,6 +56,8 @@
             {
                 <tr style="color:white;background-color: green">
                     <td><b>OTHERS</b></td>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

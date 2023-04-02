@@ -16,7 +16,10 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Start Time</th>
-            <th scope="col">Breaks</th>
+            <th scope="col">Break1 Start</th>
+            <th scope="col">Break1 End</th>
+            <th scope="col">Break2 Start</th>
+            <th scope="col">Break2 End</th>
             <th scope="col">End Time</th>
             <th scope="col"></th>
         </tr>
@@ -45,7 +48,12 @@
 
 
 
-                <td>@obj.Breaks</td>
+                <td>@DateTime.Parse(@obj.Break1_time1.ToString()).ToString("HH:mm:ss")</td>
+                <td>@DateTime.Parse(@obj.Break1_time2.ToString()).ToString("HH:mm:ss")</td>
+                <td>@DateTime.Parse(@obj.Break2_time1.ToString()).ToString("HH:mm:ss")</td>
+                <td>@DateTime.Parse(@obj.Break2_time2.ToString()).ToString("HH:mm:ss")</td>
+
+
                     @if (obj.EndTime != null)
                     {
                         DateTime endt = (DateTime)obj.EndTime;
@@ -57,7 +65,7 @@
 
 
                     }
-                <td><button type="submit" class="btn btn-info">Update</button></td>
+                <td><button type="submit" class="btn btn-info">Finished </button></td>
 
                 </form>
             </tr>
