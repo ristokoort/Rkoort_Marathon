@@ -25,10 +25,19 @@ namespace Rkoort_Marathon.Controllers
 
             return View(data);
         }
-        [HttpPost]
-        public async Task<IActionResult> AddBreaks(int id)
+
+        public IActionResult AddBreaks(int id)
         {
-           
+            ViewBag.id = id;
+            IEnumerable<Runner> data = _context.runners.ToList();
+
+            return View(data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBreak(int id)
+        {
+
             ViewBag.id = id;
 
             string stime1 = Request.Form["breaktime1"];
