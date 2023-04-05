@@ -43,9 +43,9 @@
                 <td><input name="fname" value="@obj.FirstName" class="form-control"></td>
                 <td><input name="lname" value="@obj.LastName" class="form-control"></td>
                 <td><input name="stime" type="time" value="@st.ToString("hh:mm:ss")" class="form-control"></td>
-                <td><input name="Break1_time1" type="time" value="@DateTime.Parse(@obj.Break1.ToString()).ToString("hh:mm:ss")" class="form-control"></td>
+                <td><input name="Break1_time1" type="time" value="@(!string.IsNullOrEmpty(obj.Break1.ToString()) ? DateTime.Parse(obj.Break1.ToString()).ToString("hh:mm:ss") : string.Empty)" class="form-control"></td>
 
-                <td><input name="Break2_time1" type="time" value="@DateTime.Parse(@obj.Break2.ToString()).ToString("hh:mm:ss")" class="form-control"></td>
+                <td><input name="Break2_time1" type="time" value="@(!string.IsNullOrEmpty(obj.Break2.ToString()) ? DateTime.Parse(obj.Break2.ToString()).ToString("hh:mm:ss") : string.Empty)" class="form-control"></td>
 
                     @if (@obj.EndTime != null)
                     {
