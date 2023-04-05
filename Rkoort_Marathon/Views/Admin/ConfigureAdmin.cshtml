@@ -34,7 +34,7 @@
         {
             i++;
 
-            DateTime st = (DateTime)@obj.StartTime;
+            DateTime st = @obj.StartTime != null ? (DateTime)@obj.StartTime : DateTime.MinValue;
 
 
             <tr>
