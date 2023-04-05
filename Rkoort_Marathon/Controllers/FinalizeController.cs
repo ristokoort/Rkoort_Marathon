@@ -21,7 +21,7 @@ namespace Rkoort_Marathon.Controllers
 
         public IActionResult FinalizeRunners()
         {
-            var data = _context.runners.Where(x => x.EndTime == null).ToList();
+            var data = _context.runners.Where(x => x.EndTime == null && x.Break1 != null && x.Break2 != null).ToList();
 
             return View(data);
         }

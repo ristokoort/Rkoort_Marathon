@@ -17,50 +17,53 @@ namespace Rkoort_Marathon.Controllers
         {
             _context = context;
         }
-        [HttpPost]
-        public IActionResult UpdateRunnerBreaks(int id)
-        {
-            ViewBag.id = id;
-            IEnumerable<Runner> data = _context.runners.ToList();
-
-            return View(data);
-        }
 
         public IActionResult AddBreaks(int id)
         {
             ViewBag.id = id;
-            IEnumerable<Runner> data = _context.runners.ToList();
 
+            List<Runner> data = new List<Runner>();
+
+            if (id == 1)
+            {
+                data = _context.runners.Where(x => x.Break1 == null).ToList();
+            }
+            else
+            {
+                data = _context.runners.Where(x => x.Break1 != null && x.Break2 == null).ToList();
+            }
             return View(data);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBreak(int id)
+        public async Task<IActionResult> AddBreak(int id,int b)
         {
 
             ViewBag.id = id;
 
             string stime1 = Request.Form["breaktime1"];
-            string stime2 = Request.Form["breaktime2"];
+            
 
-            if (id == 1)
+            if (b == 1)
             {
-                await _context.runners.ForEachAsync(x => x.Break1_time1 = DateTime.Parse(stime1));
+                var pk = _context.runners.Where(x => x.id == id).FirstOrDefault();
+                pk.Break1 = DateTime.Parse(stime1);
+                _context.Update(pk);
                 _context.SaveChanges();
-                await _context.runners.ForEachAsync(x => x.Break1_time2 = DateTime.Parse(stime2));
-                _context.SaveChanges();
+
             }
             else
             {
-                await _context.runners.ForEachAsync(x => x.Break2_time1 = DateTime.Parse(stime1));
+                var pk = _context.runners.Where(x => x.id == id).FirstOrDefault();
+                pk.Break2 = DateTime.Parse(stime1);
+                _context.Update(pk);
                 _context.SaveChanges();
-                await _context.runners.ForEachAsync(x => x.Break2_time2 = DateTime.Parse(stime2));
-                _context.SaveChanges();
+
             }
 
-            IEnumerable<Runner> data = _context.runners.ToList();
+            // IEnumerable<Runner> data = _context.runners.ToList();
 
-            return RedirectToAction("AddBreaks", new { id = id });
+            return RedirectToAction("AddBreaks", new { id =b });
 
         }
 

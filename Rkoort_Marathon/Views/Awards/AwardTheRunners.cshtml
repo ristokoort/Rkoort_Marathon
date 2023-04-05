@@ -15,8 +15,8 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Start Time</th>
-            <th scope="col">Break1 (Min)</th>
-            <th scope="col">Break2 (Min)</th>
+            <th scope="col">Break1</th>
+            <th scope="col">Break2</th>
             <th scope="col">End Time</th>
             <th scope="col" style="text-align:right">Duration (sec)</th>
 
@@ -45,8 +45,8 @@
                 <td>@obj.FirstName</td>
                 <td>@obj.LastName</td>
                 <td> @st.ToString("hh:mm:ss")</td>
-                <td>@obj.Break1</td>
-                <td>@obj.Break2</td>
+                <td>@DateTime.Parse( @obj.Break1.ToString()).ToString("hh:mm:ss")</td>
+                <td>@DateTime.Parse( @obj.Break2.ToString()).ToString("hh:mm:ss")</td>
 
                 <td>@et.ToString("hh:mm:ss")</td>
                 <td style="text-align:right">@obj.time</td>
@@ -69,3 +69,4 @@
         }
     </tbody>
 </table>
+

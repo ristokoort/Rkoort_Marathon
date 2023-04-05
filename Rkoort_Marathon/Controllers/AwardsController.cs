@@ -27,21 +27,21 @@ namespace Rkoort_Marathon.Controllers
 
             for (int x = 0; x < data.Count; x++)
             {
-                DateTime break1start = (DateTime)data[x].Break1_time1;
-                DateTime break1end = (DateTime)data[x].Break1_time2;
+                DateTime break1start = (DateTime)data[x].Break1;
 
-                TimeSpan break1 = break1end.Subtract(break1start);
 
-                DateTime break2start = (DateTime)data[x].Break2_time1;
-                DateTime break2end = (DateTime)data[x].Break2_time2;
 
-                TimeSpan break2 = break2end.Subtract(break2start);
+
+                DateTime break2start = (DateTime)data[x].Break2;
+
+
+
 
 
                 DateTime endtime = (DateTime)data[x].EndTime;
 
 
-                DateTime FinalTime = endtime.AddMinutes(-(double)break1.Minutes).AddMinutes(-(double)break2.Minutes);
+                DateTime FinalTime = endtime;
 
                 TimeSpan tm = ((TimeSpan)(FinalTime - data[x].StartTime));
 
@@ -54,8 +54,8 @@ namespace Rkoort_Marathon.Controllers
                     StartTime = data[x].StartTime,
                     EndTime = data[x].EndTime,
                     time = tm.TotalSeconds,
-                    Break1 = break1.Minutes,
-                    Break2 = break2.Minutes
+                    Break1 = data[x].Break1,
+                    Break2 = data[x].Break2
 
                 };
 

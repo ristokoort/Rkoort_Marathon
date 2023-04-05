@@ -43,16 +43,16 @@ namespace Rkoort_Marathon.Controllers
 
             Runner rns = new Runner
             {
+              
+
                 id = id,
                 FirstName = fname,
                 LastName = lname,
                 StartTime = DateTime.Parse(stime),
                 EndTime = DateTime.Parse(ltime),
 
-                Break1_time1 = DateTime.Parse(break1_start),
-                Break1_time2 = DateTime.Parse(break1_end),
-                Break2_time1 = DateTime.Parse(break2_start),
-                Break2_time2 = DateTime.Parse(break2_end)
+               // Break1 = DateTime.Parse(break1),
+                //Break2 = DateTime.Parse(break2)
             };
 
             _context.Update(rns);

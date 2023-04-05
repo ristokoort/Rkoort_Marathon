@@ -10,46 +10,8 @@
 
 
 <br />
-@if (ViewBag.id == 1)
-{
-    <form asp-controller="Break" asp-action="AddBreak" method="post" asp-route-id="1">
-        <div class="form-group">
-            <label for="exampleFormControlInput1"><b>Break 1 Start </b></label>
-            <div class="col-2">
-                <input type="time" class="form-control" id="breaktime1" name="breaktime1" placeholder="Break Time" required>
-            </div>
-            <label for="exampleFormControlInput1"><b>Break 1 End </b></label>
-            <div class="col-2">
-                <input type="time" class="form-control" id="breaktime2" name="breaktime2" placeholder="Break Time" required>
-            </div>
 
-            <br />
-            <button class="btn btn-info">Apply</button>
-        </div>
-
-    </form>
-}
-else
-{
-    <form asp-controller="Break" asp-action="AddBreak" method="post" asp-route-id="2">
-        <div class="form-group">
-            <label for="exampleFormControlInput1"><b>Break 2 Start</b></label>
-            <div class="col-2">
-                <input type="time" class="form-control" id="breaktime1" name="breaktime1" placeholder="Break Time" required>
-            </div>
-            <label for="exampleFormControlInput1"><b>Break 2 End</b></label>
-            <div class="col-2">
-                <input type="time" class="form-control" id="breaktime2" name="breaktime2" placeholder="Break Time" required>
-            </div>
-            <br />
-            <button class="btn btn-info">Apply</button>
-        </div>
-    </form>
-
-
-}
 <br />
-<hr />
 
 
 <table class="table">
@@ -59,9 +21,8 @@ else
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Start Time</th>
-            <th scope="col">Breaks1 Start</th>
-            <th scope="col">Breaks1 End</th>
-            <th scope="col">Breaks2 Start</th>
+            <th scope="col">Break Time</th>
+
             <th scope="col">Breaks2 End</th>
             <th scope="col"></th>
         </tr>
@@ -82,20 +43,28 @@ else
 
                     <td>@dt1.ToString("HH:mm:ss")</td>
                 }
-                @if (obj.Break1_time1 != null)
+                @if (obj.Break1 == null)
                 {
 
 
+                    <form class="btn btn-info" asp-action="AddBreak" asp-route-id="@obj.id" asp-route-b="1" enctype="multipart/form-data">
 
-                    <td>@DateTime.Parse(@obj.Break1_time1.ToString()).ToString("HH:mm:ss")</td>
-                    <td>@DateTime.Parse(@obj.Break1_time2.ToString()).ToString("HH:mm:ss")</td>
+
+                    <td>  <input type="time" class="form-control" id="breaktime1" name="breaktime1" placeholder="Break Time" required></td>
+                    <td><button type="submit" class="btn btn-info">Finished </button></td>
+                    </form>
                 }
+                else
 
-                @if (obj.Break2_time1 != null)
+                @if (obj.Break2 == null)
                 {
 
-                    <td>@DateTime.Parse(@obj.Break2_time1.ToString()).ToString("HH:mm:ss")</td>
-                    <td>@DateTime.Parse(@obj.Break2_time2.ToString()).ToString("HH:mm:ss")</td>
+                    <form class="btn btn-info" asp-action="AddBreak" asp-route-id="@obj.id" asp-route-b="2" enctype="multipart/form-data">
+
+
+                    <td>  <input type="time" class="form-control" id="breaktime1" name="breaktime1" placeholder="Break Time" required></td>
+                    <td><button type="submit" class="btn btn-info">Finished </button></td>
+                    </form>
 
                 }
             </tr>

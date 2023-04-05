@@ -20,7 +20,7 @@ namespace Rkoort_Marathon.Models
         public DateTime? EndTime { get; set; }
         public double time { get; set; }
 
-        public int? Break1 { get; set; }
-        public int? Break2 { get; set; }
+        public DateTime? Break1 { get; set; }
+        public DateTime? Break2 { get; set; }
     }
 }

@@ -14,10 +14,9 @@ namespace Rkoort_Marathon.Models
         [Required]
         public string LastName { get; set; }
 
-        public DateTime? Break1_time1 { get; set; }
-        public DateTime? Break1_time2 { get; set; }
-        public DateTime? Break2_time1 { get; set; }
-        public DateTime? Break2_time2 { get; set; }
+        public DateTime? Break1 { get; set; }
+        public DateTime? Break2 { get; set; }
+
         public int Breaks { get; set; }
 
         [DataType(DataType.Time)]
